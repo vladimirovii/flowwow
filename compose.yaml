@@ -1,0 +1,25 @@
+version: '3.4'
+
+services:
+  php-fpm:
+    build:
+      context: ./docker/${APP_ENV:-dev}
+      dockerfile: php-fpm.docker
+    user: "${CURRENT_USER}"
+    volumes:
+      - ./:/app
+    environment:
+      PHP_IDE_CONFIG: "serverName=Docker"
+    restart: unless-stopped
+  nginx:
+    ports:
+      - ${NGINX_PORT:-80}:80
+    build:
+      context: ./docker/${APP_ENV:-dev}
+      dockerfile: nginx.docker
+    volumes:
+      - ./:/app
+    depends_on:
+      - php-fpm
+    restart: unless-stopped
+

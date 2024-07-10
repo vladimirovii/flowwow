@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+    <section class="content-wrapper">
+        <div class="page-content clearfix">
+
+            <div class="content-block content-block_pad">
+                <div class="container">
+                    <div class="form-wrapper">
+                        {{ form_start(form, {
+                            action: path('app_home_page')
+                        }) }}
+                            <div class="form-columns">
+                                <div class="form">
+                                    <div class="form-group required">
+                                        <label class="control-label">Базовая стоимость</label>
+                                        {{ form_widget(form.amount, {'attr': {'class': 'form-control'}}) }}
+                                        <div class="error-block">
+                                            {{ form_errors(form.amount) }}
+                                        </div>
+                                        <div class="hint">Обязательное поле</div>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label class="control-label">Дата рождения</label>
+                                        {{ form_widget(form.birthdate, {'attr': {'class': 'form-control'}}) }}
+                                        <div class="error-block">
+                                            {{ form_errors(form.birthdate) }}
+                                        </div>
+                                        <div class="hint">Обязательное поле</div>
+                                    </div>
+                                </div>
+                                <div class="form">
+                                    <div class="form-group required">
+                                        <label class="control-label">Дата старта путешествия</label>
+                                        {{ form_widget(form.tourdate, {'attr': {'class': 'form-control'}}) }}
+                                        <div class="error-block">
+                                            {{ form_errors(form.tourdate) }}
+                                        </div>
+                                        <div class="hint">Если не указана то текущая дата</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Дата оплаты</label>
+                                        {{ form_widget(form.paymentdate, {'attr': {'class': 'form-control'}}) }}
+                                        <div class="error-block">
+                                            {{ form_errors(form.paymentdate) }}
+                                        </div>
+                                        <div class="hint">Необязательное поле</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn_blue">Рассчитать</button>
+                                </div>
+                                <div class="result">{{ totalAmount|format_currency('RUB') }}</div>
+                            </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+{% endblock %}
